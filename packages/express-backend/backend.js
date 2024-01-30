@@ -38,16 +38,18 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-const findUserByName = (name) => {
+const findUsersByCriteria = (name, job) => {
   return users["users_list"].filter(
-    (user) => user["name"] === name
+    (user) => user["name"] === name && user["job"] === job
   );
 };
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
-  if (name != undefined) {
-    let result = findUserByName(name);
+  const job = req.query.job;
+
+  if (name !== undefined && job !== undefined) {
+    let result = findUsersByCriteria(name, job);
     result = { users_list: result };
     res.send(result);
   } else {
@@ -77,6 +79,17 @@ app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd);
   res.send();
+});
+
+app.delete("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const index = users["users_list"].findIndex(user => user.id === id);
+  if (index !== -1) {
+    users["users_list"].splice(index, 1);
+    res.status(204).send(); // Sending 204 No Content on successful deletion
+  } else {
+    res.status(404).send("Resource not found.");
+  }
 });
 
 app.listen(port, () => {

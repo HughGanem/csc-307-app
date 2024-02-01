@@ -49,7 +49,7 @@ function MyApp() {
       fetch(deleteUrl, {method: 'DELETE'}) 
         .then(response => {
           if (response.status === 204) {
-            const updated = characters.filter((character, i) => {
+            const updated = characters.filter((i) => {
               return i !== index;
             });
             setCharacters(updated);

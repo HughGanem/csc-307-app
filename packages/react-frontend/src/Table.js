@@ -5,6 +5,7 @@ function TableHeader() {
   return (
     <thead>
       <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Job</th>
       </tr>
@@ -16,6 +17,7 @@ function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     return (
       <tr key={index}>
+        <td>{row.id}</td>
         <td>{row.name}</td>
         <td>{row.job}</td>
         <td>
@@ -25,7 +27,7 @@ function TableBody(props) {
         </td>
       </tr>
     );
-  }); // <-- Added the missing closing parenthesis here
+  });
 
   return <tbody>{rows}</tbody>;
 }

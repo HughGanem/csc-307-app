@@ -50,7 +50,7 @@ function MyApp() {
         .then(response => {
           if (response.status === 204) {
             const updated = characters.filter((i) => {
-              return i !== index;
+              return i._id !== userToDelete._id;
             });
             setCharacters(updated);
           } else if (response.status === 404) {
